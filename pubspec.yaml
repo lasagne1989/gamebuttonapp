@@ -1,0 +1,41 @@
+name: gamebutton_ble
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.5
+
+  # database
+  sqflite: ^2.0.3+1
+
+  # format DateTime
+  intl: any
+
+  # state management
+  provider: ^6.0.3
+
+  #arp scanner
+  arp_scanner: ^1.2.7
+
+  #date_time_picker:
+  date_field: ^3.0.1
+
+  # slidable
+  flutter_slidable: ^2.0.0
+
+  web_socket_channel: ^2.2.0
+
+  numberpicker: ^2.1.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
