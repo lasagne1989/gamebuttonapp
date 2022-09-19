@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../provider/players.dart';
 import '../model/player.dart';
@@ -14,7 +15,7 @@ class PlayerWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  late DateTime playerDob = player.dob;
+  late String playerDob = DateFormat.yMMMMd().format(player.dob);
 
   @override
   Widget build(BuildContext context) => ClipRRect(

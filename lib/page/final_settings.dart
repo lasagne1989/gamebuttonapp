@@ -1,7 +1,6 @@
 import 'package:arp_scanner/arp_scanner.dart';
 import 'package:arp_scanner/device.dart';
 import 'package:flutter/material.dart';
-import 'package:gamebutton_ble/widget/big_button.dart';
 import '../main.dart';
 import '../model/player.dart';
 import 'package:web_socket_channel/io.dart';
@@ -36,7 +35,9 @@ class _GameSettingsState extends State<GameSettings> {
     Uri.parse('ws://${_result}:8765'),
   );
   late var namePlaying = widget.playing.map((player) => "'${player.name}'").toList();
+  late var dobPlaying = widget.playing.map((player) => "'${player.dob}'").toList();
   late var strPlaying = namePlaying.toString();
+  late var strDob = dobPlaying.toString();
   int _valueMin = 0;
   int _valueSec = 30;
   int currentStep = 0;
@@ -179,7 +180,7 @@ class _GameSettingsState extends State<GameSettings> {
     var timeLimit = _valueMin * 60 + _valueSec;
     print(timeLimit);
     print(strPlaying);
-    _channel.sink.add('{"players":"$strPlaying", "time_limit": $timeLimit}');
+    _channel.sink.add('{"players":"$strPlaying", "time_limit": $timeLimit, "dob": $dobPlaying}');
   }
 
   void sendNext() {
