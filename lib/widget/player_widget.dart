@@ -15,7 +15,7 @@ class PlayerWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  late String playerDob = DateFormat.yMMMMd().format(player.dob);
+  late final String playerDob = DateFormat.yMMMMd().format(player.dob);
 
   @override
   Widget build(BuildContext context) => ClipRRect(

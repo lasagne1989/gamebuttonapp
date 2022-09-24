@@ -179,11 +179,12 @@ class _GameSettingsState extends State<GameSettings> {
   void _sendMessage() {
     var timeLimit = _valueMin * 60 + _valueSec;
     print(timeLimit);
-    print(strPlaying);
+    print(dobPlaying);
     _channel.sink.add('{"players":"$strPlaying", "time_limit": $timeLimit, "dob": $dobPlaying}');
   }
 
   void sendNext() {
+    print('next');
     _channel.sink.add('next');
   }
 

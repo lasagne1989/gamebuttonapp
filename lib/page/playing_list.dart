@@ -54,11 +54,11 @@ class _PlayingListWidgetState extends State<PlayingListWidget> {
 
   Widget buildPlayer(int index, Player player) =>
       ListTile(
-        key: ValueKey(player),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        title: Text(player.name),
-        tileColor: Colors.black,
-      );
+          key: ValueKey(player),
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          title: Text(player.name, style: const TextStyle(fontSize:20, color: Colors.white)),
+          tileColor: Colors.black,
+        );
 
   void _showPlaying() {
     Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) {
