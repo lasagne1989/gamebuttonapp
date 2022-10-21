@@ -23,19 +23,20 @@ class _GameSettingsState extends State<GameSettings> {
     super.initState();
     ArpScanner.onScanning.listen((Device device) {
       var hostName = device.hostname;
-      if (hostName == "raspberrypi") {
+      if (hostName == "gamebutton") {
         setState(() {
           _result =
           "${device.ip}";
-        }); }
+        });}
     });
   }
 
-  late final _channel = IOWebSocketChannel.connect(
-    Uri.parse('ws://${_result}:8765'),
+
+  final _channel = IOWebSocketChannel.connect(
+    Uri.parse('ws://192.168.86.42:8765'),
   );
-  late var namePlaying = widget.playing.map((player) => "'${player.name}'").toList();
-  late var dobPlaying = widget.playing.map((player) => "'${player.dob}'").toList();
+  late var namePlaying = widget.playing.map((player) => '"${player.name}"').toList();
+  late var dobPlaying = widget.playing.map((player) => '"${player.dob}"').toList();
   late var strPlaying = namePlaying.toString();
   late var strDob = dobPlaying.toString();
   int _valueMin = 0;
@@ -164,7 +165,7 @@ class _GameSettingsState extends State<GameSettings> {
               'Beep',
               style: TextStyle(fontSize: 24),
             ),
-            onPressed: sendNext,
+            onPressed: _sendNext,
             style: ElevatedButton.styleFrom(
               fixedSize: const Size(200, 200),
               shape: const CircleBorder(),
@@ -180,10 +181,11 @@ class _GameSettingsState extends State<GameSettings> {
     var timeLimit = _valueMin * 60 + _valueSec;
     print(timeLimit);
     print(dobPlaying);
-    _channel.sink.add('{"players":"$strPlaying", "time_limit": $timeLimit, "dob": $dobPlaying}');
+    print(_result);
+    _channel.sink.add('{"players":$strPlaying, "time_limit": $timeLimit, "dob": $dobPlaying}');
   }
 
-  void sendNext() {
+  void _sendNext() {
     print('next');
     _channel.sink.add('next');
   }
