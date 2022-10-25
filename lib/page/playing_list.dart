@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../main.dart';
 import '../model/player.dart';
 import '../provider/players.dart';
 import 'final_settings.dart';
@@ -25,7 +23,7 @@ class _PlayingListWidgetState extends State<PlayingListWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(MyApp.title),
+        title: Text("Get the Players in Order"),
         centerTitle: true,
         actions: <Widget>[
           IconButton(

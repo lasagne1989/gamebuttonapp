@@ -44,6 +44,8 @@ class PlayerFormWidget extends StatelessWidget {
         decoration: InputDecoration(
           border: UnderlineInputBorder(),
           labelText: 'Player Name',
+          filled: true,
+          fillColor: Colors.grey.shade300,
         ),
       );
 
@@ -55,6 +57,8 @@ class PlayerFormWidget extends StatelessWidget {
         decoration: InputDecoration(
           border: UnderlineInputBorder(),
           labelText: 'Date of Birth',
+          filled: true,
+          fillColor: Colors.grey.shade300,
         ),
       );
 

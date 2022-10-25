@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../main.dart';
 import '../database/player_db.dart';
 import '../provider/players.dart';
 import '../widget/add_player_dialog_widget.dart';
@@ -43,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(MyApp.title),
+        title: Text("Add Your Players"),
         centerTitle: true,
         actions: <Widget>[
           IconButton(

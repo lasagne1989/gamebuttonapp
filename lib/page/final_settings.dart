@@ -1,7 +1,6 @@
 import 'package:arp_scanner/arp_scanner.dart';
 import 'package:arp_scanner/device.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
 import '../model/player.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -48,31 +47,43 @@ class _GameSettingsState extends State<GameSettings> {
         Step(
           state: currentStep > 0 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 0,
-          title: Text('Game Type'),
+          title: Text('Game Type', style: TextStyle(fontSize: 20)),
           content: Container(),
         ),
         Step(
             isActive: currentStep >= 1,
-            title: Text('Time limit'),
+            title: Text('Time limit', style: TextStyle(fontSize: 20)),
             content: Row(
               children: <Widget>[
                 Column(children: <Widget>[
-                  Center(child: Text("Mins")),
+                  Center(child: Text("Mins", style: TextStyle(fontSize: 20))),
                   Center(
                       child: NumberPicker(
                         value: _valueMin,
                         minValue: 0,
                         maxValue: 10,
+                        textStyle: TextStyle(fontSize: 20),
+                        selectedTextStyle: TextStyle(fontSize: 28,color: Colors.red),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: Colors.black26),
+                        ),
                         onChanged: (value) => setState(() => _valueMin = value),
                       ),)
                 ]),
                 Column(children: <Widget>[
-                  Center(child: Text("Secs")),
+                  Center(child: Text("Secs", style: TextStyle(fontSize: 20))),
                   Center(
                       child: NumberPicker(
                         value: _valueSec,
                         minValue: 0,
                         maxValue: 59,
+                        textStyle: TextStyle(fontSize: 20),
+                        selectedTextStyle: TextStyle(fontSize: 28,color: Colors.red),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: Colors.black26),
+                        ),
                         onChanged: (value) => setState(() => _valueSec = value),
                       ))
                 ])
@@ -84,7 +95,7 @@ class _GameSettingsState extends State<GameSettings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(MyApp.title),
+        title: Text("Game Settings"),
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
       ),
@@ -107,9 +118,8 @@ class _GameSettingsState extends State<GameSettings> {
                     (player) => Chip(
                         avatar: CircleAvatar(
                           backgroundColor: Colors.grey.shade800,
-                          child: const Text('AB'),
                         ),
-                        label: Text(player.name)),
+                        label: Text(player.name, style: TextStyle(fontSize: 20))),
                   )
                   .toList()),
           Theme(
@@ -139,13 +149,14 @@ class _GameSettingsState extends State<GameSettings> {
                 return Row(
                     children: <Widget>[
                     TextButton(
-                    onPressed: details.onStepContinue,
-                    child: Text(isLastStep ? 'Start the Game': 'Next'),
+                      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.red)),
+                      onPressed: details.onStepContinue,
+                    child: Text(isLastStep ? 'Start the Game': 'Next', style: TextStyle(fontSize: 20, color: Colors.white)),
                 ),
                 if (currentStep !=0)
                       TextButton(
-                onPressed: details.onStepCancel,
-                child: const Text('Back'),
+                        onPressed: details.onStepCancel,
+                        child: const Text('Back', style: TextStyle(fontSize: 20, color: Colors.white)),
                 ),
                 ],
                 );

@@ -12,7 +12,7 @@ class PlayersProvider extends ChangeNotifier {
       _players.where((player) => player.isPlaying == true).toList();
 
   void setPlayers(List<Player> players) =>
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         _players = players;
         notifyListeners();
       });
