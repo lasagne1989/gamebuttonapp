@@ -17,22 +17,24 @@ class GameSettings extends StatefulWidget {
 
 class _GameSettingsState extends State<GameSettings> {
   String _result = '';
+
   @override
   void initState() {
     super.initState();
+
     ArpScanner.onScanning.listen((Device device) {
       var hostName = device.hostname;
-      if (hostName == "gamebutton") {
+      if (hostName == "gamebutton.lan") {
         setState(() {
           _result =
           "${device.ip}";
-        });}
+        }); }
     });
+    ArpScanner.scan();
   }
 
-
-  final _channel = IOWebSocketChannel.connect(
-    Uri.parse('ws://192.168.86.42:8765'),
+  late final _channel = IOWebSocketChannel.connect(
+    Uri.parse('ws://${_result}:8765'),
   );
   late var namePlaying = widget.playing.map((player) => '"${player.name}"').toList();
   late var dobPlaying = widget.playing.map((player) => '"${player.dob}"').toList();
@@ -189,6 +191,7 @@ class _GameSettingsState extends State<GameSettings> {
   }
 
   void _sendMessage() {
+
     var timeLimit = _valueMin * 60 + _valueSec;
     print(timeLimit);
     print(dobPlaying);
