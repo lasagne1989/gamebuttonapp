@@ -40,6 +40,8 @@ class _GameSettingsState extends State<GameSettings> {
   late var dobPlaying = widget.playing.map((player) => '"${player.dob}"').toList();
   late var strPlaying = namePlaying.toString();
   late var strDob = dobPlaying.toString();
+  List<String> modes = <String>['Standard', 'Nameless', 'Chess'];
+  String selectedMode= "Standard";
   int _valueMin = 0;
   int _valueSec = 30;
   int currentStep = 0;
@@ -49,8 +51,27 @@ class _GameSettingsState extends State<GameSettings> {
         Step(
           state: currentStep > 0 ? StepState.complete : StepState.indexed,
           isActive: currentStep >= 0,
-          title: Text('Game Type', style: TextStyle(fontSize: 20)),
-          content: Container(),
+          title: Text('Game Mode', style: TextStyle(fontSize: 20)),
+          content: DropdownButton<String>(
+            value: selectedMode,
+            style: TextStyle(color: Colors.black, fontSize: 20),
+            elevation: 16,
+            isExpanded: true,
+            dropdownColor: Colors.white,
+            iconEnabledColor: Colors.red,
+            onChanged: (String? value) {
+              // This is called when the user selects an item.
+              setState(() {
+                selectedMode = value!;
+              });
+            },
+            items: modes.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
         ),
         Step(
             isActive: currentStep >= 1,
@@ -61,7 +82,8 @@ class _GameSettingsState extends State<GameSettings> {
                   Center(child: Text("Mins", style: TextStyle(fontSize: 20))),
                   Center(
                       child: NumberPicker(
-                        value: _valueMin,
+                        value: selectedMode == "Chess"?
+                        5: _valueMin,
                         minValue: 0,
                         maxValue: 10,
                         textStyle: TextStyle(fontSize: 20),
@@ -77,7 +99,8 @@ class _GameSettingsState extends State<GameSettings> {
                   Center(child: Text("Secs", style: TextStyle(fontSize: 20))),
                   Center(
                       child: NumberPicker(
-                        value: _valueSec,
+                        value: selectedMode == "Chess"?
+                                0: _valueSec,
                         minValue: 0,
                         maxValue: 59,
                         textStyle: TextStyle(fontSize: 20),
@@ -196,7 +219,8 @@ class _GameSettingsState extends State<GameSettings> {
     print(timeLimit);
     print(dobPlaying);
     print(_result);
-    _channel.sink.add('{"players":$strPlaying, "time_limit": $timeLimit, "dob": $dobPlaying}');
+    _channel.sink.add('{"players":$strPlaying, "time_limit": $timeLimit, "mode": $selectedMode}');
+  ///"dob": $dobPlaying}'
   }
 
   void _sendNext() {
