@@ -39,13 +39,6 @@ class PlayersDatabase {
 
     Future<Player> create(Player player) async{
     final db = await instance.database;
-    //final json = player.toJson();
-    //final columns =
-    //   '${PlayerFields.name},${PlayerFields.dob}';
-    //final values =
-    //    '${json[PlayerFields.name]},${json[PlayerFields.dob]}';
-    //final id = await db
-    //      .rawInsert('INSERT INTO table_name ($columns) VALUES ($values)');
 
     final id = await db.insert(tablePlayers, player.toJson());
     return player.copy(id: id);

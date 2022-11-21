@@ -1,62 +1,60 @@
 import 'package:flutter/material.dart';
+import '../page/home_page.dart';
 import 'package:provider/provider.dart';
-import '../database/player_db.dart';
-import '../provider/players.dart';
-import '../widget/add_player_dialog_widget.dart';
-import '../widget/nav_drawer.dart';
-import '../widget/player_list_widget.dart';
-import 'playing_list.dart';
-import '../model/player.dart';
+import '../database/game_db.dart';
+import '../provider/games.dart';
+import '../widget/add_game_dialog_widget.dart';
+import '../widget/game_list_widget.dart';
+import '../model/game.dart';
 
 
-class HomePage extends StatefulWidget {
+class GamesList extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _GamesListState createState() => _GamesListState();
 }
 
-class _HomePageState extends State<HomePage> {
-  late List<Player> players;
+class _GamesListState extends State<GamesList> {
+  late List<Game> games;
   bool isLoading = false;
 
   @override
   void initState(){
-     super.initState();
-     refreshPlayers();
+    super.initState();
+    refreshGames();
   }
 
 
   @override
   void dispose() {
-    PlayersDatabase.instance.close();
+    GamesDatabase.instance.close();
     super.dispose();
   }
 
-  Future refreshPlayers() async {
+  Future refreshGames() async {
     setState(() => isLoading = true);
-    this.players = await PlayersDatabase.instance.readAllPlayers();
-    final provider = Provider.of<PlayersProvider>(context,listen: false);
-    provider.setPlayers(players);
+    this.games = await GamesDatabase.instance.readAllGames();
+    final provider = Provider.of<GamesProvider>(context,listen: false);
+    provider.setGames(games);
     setState(() => isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(),
       appBar: AppBar(
-        title: Text("Add Your Players"),
+        title: Text("Add Your Games"),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.arrow_circle_right_rounded,
+              icon: Icon(Icons.home,
                   color: Colors.red, size: 40),
-              onPressed: _pushPlaying)
+              onPressed: _pushHome)
         ],
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: isLoading ?
       Center(child: CircularProgressIndicator())
-      : PlayerListWidget(),
+          : GameListWidget(),
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -64,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.red,
         onPressed: () => showDialog(
           context: context,
-          builder: (context) => AddPlayerDialogWidget(),
+          builder: (context) => AddGamesDialogWidget(),
           barrierDismissible: false,
         ),
         child: Icon(Icons.add),
@@ -72,9 +70,9 @@ class _HomePageState extends State<HomePage> {
     );
 
   }
-  void _pushPlaying() {
+  void _pushHome() {
     Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) {
-      return PlayingListWidget();
+      return HomePage();
     }));
   }
 }

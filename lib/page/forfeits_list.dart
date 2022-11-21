@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
+import '../page/home_page.dart';
 import 'package:provider/provider.dart';
 import '../database/player_db.dart';
 import '../provider/players.dart';
 import '../widget/add_player_dialog_widget.dart';
-import '../widget/nav_drawer.dart';
 import '../widget/player_list_widget.dart';
-import 'playing_list.dart';
 import '../model/player.dart';
 
 
-class HomePage extends StatefulWidget {
+class ForfeitList extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _ForfeitListState createState() => _ForfeitListState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ForfeitListState extends State<ForfeitList> {
   late List<Player> players;
   bool isLoading = false;
 
   @override
   void initState(){
-     super.initState();
-     refreshPlayers();
+    super.initState();
+    refreshPlayers();
   }
 
 
@@ -42,21 +41,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavDrawer(),
       appBar: AppBar(
-        title: Text("Add Your Players"),
+        title: Text("Add Your Games"),
         centerTitle: true,
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.arrow_circle_right_rounded,
+              icon: Icon(Icons.home,
                   color: Colors.red, size: 40),
-              onPressed: _pushPlaying)
+              onPressed: _pushHome)
         ],
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: isLoading ?
       Center(child: CircularProgressIndicator())
-      : PlayerListWidget(),
+          : PlayerListWidget(),
       floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -72,9 +70,9 @@ class _HomePageState extends State<HomePage> {
     );
 
   }
-  void _pushPlaying() {
+  void _pushHome() {
     Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) {
-      return PlayingListWidget();
+      return HomePage();
     }));
   }
 }
