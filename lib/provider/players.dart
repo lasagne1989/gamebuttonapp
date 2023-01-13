@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import '../model/player.dart';
-
 import '../database/player_db.dart';
 
 class PlayersProvider extends ChangeNotifier {

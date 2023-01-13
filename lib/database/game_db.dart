@@ -60,10 +60,10 @@ class GamesDatabase {
 
     Future<List<Game>> readAllGames() async {
       final db = await instance.database;
-      final result = await db.query(tableGames);
+      final orderBy = '${GameFields.gameN} ASC';
+      final result = await db.query(tableGames, orderBy: orderBy);
       return result.map((json) => Game.fromJson(json)).toList();
     }
-
 
     Future<int> update(Game game) async {
       final db = await instance.database;
