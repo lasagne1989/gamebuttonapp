@@ -42,7 +42,7 @@ class _ForfeitListState extends State<ForfeitList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add Your Games"),
+        title: Text("Add Your Forfeits"),
         centerTitle: true,
         actions: <Widget>[
           IconButton(

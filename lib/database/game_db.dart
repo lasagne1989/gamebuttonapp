@@ -29,7 +29,7 @@ class GamesDatabase {
     await db.execute('''
       CREATE TABLE $tableGames (
       ${GameFields.id} $idType,
-      ${GameFields.gameN} $textType,      
+      ${GameFields.gameN} $textType      
       )
      ''');
     }
@@ -86,6 +86,7 @@ class GamesDatabase {
 
     Future close() async{
       final db = await instance.database;
+      _database = null;
       db.close();
     }
 }

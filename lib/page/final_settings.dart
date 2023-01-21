@@ -24,7 +24,7 @@ class _GameSettingsState extends State<GameSettings> {
 
     ArpScanner.onScanning.listen((Device device) {
       var hostName = device.hostname;
-      if (hostName == "gamebutton.lan") {
+      if (hostName == "gamebutton.lan" || hostName == "gamebutton") {
         setState(() {
           _result =
           "${device.ip}";
