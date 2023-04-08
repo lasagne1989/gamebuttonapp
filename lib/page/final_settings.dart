@@ -25,6 +25,7 @@ class _GameSettingsState extends State<GameSettings> {
     ArpScanner.onScanning.listen((Device device) {
       var hostName = device.hostname;
       if (hostName == "gamebutton.lan" || hostName == "gamebutton") {
+      ///if (hostName == "DESKTOP-JNKQ9HF") {
         setState(() {
           _result =
           "${device.ip}";
@@ -34,13 +35,14 @@ class _GameSettingsState extends State<GameSettings> {
   }
 
   late final _channel = IOWebSocketChannel.connect(
+    ///Uri.parse('ws://192.168.86.58:8765'),
     Uri.parse('ws://${_result}:8765'),
   );
   late var namePlaying = widget.playing.map((player) => '"${player.name}"').toList();
   late var dobPlaying = widget.playing.map((player) => '"${player.dob}"').toList();
   late var strPlaying = namePlaying.toString();
   late var strDob = dobPlaying.toString();
-  List<String> modes = <String>['Standard', 'Nameless', 'Chess'];
+  List<String> modes = <String>['Standard', 'Nameless'];
   String selectedMode= "Standard";
   int _valueMin = 0;
   int _valueSec = 30;
@@ -216,10 +218,11 @@ class _GameSettingsState extends State<GameSettings> {
   void _sendMessage() {
 
     var timeLimit = _valueMin * 60 + _valueSec;
-    print(timeLimit);
-    print(dobPlaying);
+    ///print(timeLimit);
+    ///print(dobPlaying);
     print(_result);
-    _channel.sink.add('{"players":$strPlaying, "time_limit": $timeLimit, "mode": $selectedMode}');
+    print('{"players":$strPlaying, "time_limit": $timeLimit, "mode": "$selectedMode", "dob": $dobPlaying}');
+    _channel.sink.add('{"players":$strPlaying, "time_limit": $timeLimit, "mode": "$selectedMode", "dob": $dobPlaying}');
   ///"dob": $dobPlaying}'
   }
 
