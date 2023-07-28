@@ -42,7 +42,7 @@ class _GameSettingsState extends State<GameSettings> {
   late var dobPlaying = widget.playing.map((player) => '"${player.dob}"').toList();
   late var strPlaying = namePlaying.toString();
   late var strDob = dobPlaying.toString();
-  List<String> modes = <String>['Standard', 'Nameless'];
+  List<String> modes = <String>['Standard', 'Nameless', 'Chess'];
   String selectedMode= "Standard";
   int _valueMin = 0;
   int _valueSec = 30;
